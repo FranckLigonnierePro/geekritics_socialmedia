@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('dashboard', [ClientAuthController::class, 'dashboard']); 
+Route::get('login', [ClientAuthController::class, 'index'])->name('login');
+Route::post('client-login', [ClientAuthController::class, 'clientLogin'])->name('login.client'); 
+Route::get('registration', [ClientAuthController::class, 'registration'])->name('register-user');
+Route::post('client-registration', [ClientAuthController::class, 'clientRegistration'])->name('register.client'); 
+Route::get('signout', [ClientAuthController::class, 'signOut'])->name('signout');
