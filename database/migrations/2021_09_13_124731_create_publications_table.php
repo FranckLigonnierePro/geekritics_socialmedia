@@ -15,6 +15,14 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
+            $table->text('content');
+            $table->string('image',55)->nullable();
+            $table->string('video',55)->nullable();
+            $table->string('tag',55)->nullable();
+            $table->unsignedBigInteger('id_category');
+            $table->foreign('id_category')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
