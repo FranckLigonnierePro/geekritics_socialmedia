@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PublicationController extends Controller
 {
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
+
     public function index(){
         $publications = Publication::join('categories','categories.id','=','publications.id_category')
         ->get(['publications.id','publications.content', 'categories.category',]);
