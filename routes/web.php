@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientAuthController;
+use App\Http\Controllers\PublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::post('client-login', [ClientAuthController::class, 'clientLogin'])->name(
 Route::get('registration', [ClientAuthController::class, 'registration'])->name('register-user');
 Route::post('client-registration', [ClientAuthController::class, 'clientRegistration'])->name('register.client'); 
 Route::get('signout', [ClientAuthController::class, 'signOut'])->name('signout');
+
+Route::get('newsfeed', [PublicationController::class,'index'])->name('newsfeed');
+Route::post('customPublication', [PublicationController::class,'store'])->name('customPublication');
