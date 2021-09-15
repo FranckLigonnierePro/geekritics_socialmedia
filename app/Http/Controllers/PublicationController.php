@@ -15,10 +15,9 @@ class PublicationController extends Controller
 
     public function index(){
         $publications = Publication::join('categories','categories.id','=','publications.id_category')
-        ->get(['publications.id','publications.content', 'categories.category',]);
+        ->get(['publications.id','publications.content','publications.created_at', 'categories.category']);
         $categories = Categorie::all();
         return view('publications.index', compact('publications','categories'));
-        
         
     }
 
@@ -39,4 +38,14 @@ class PublicationController extends Controller
                          ->with('success', 'Recette enregistrée !')
                          ->with('image', $imageName);
     }
+
+    public function show($id){
+        
+        $publications = Publication::find($id);
+        return back(compact('publications'));
+        
+        
+    }
+
+
 }

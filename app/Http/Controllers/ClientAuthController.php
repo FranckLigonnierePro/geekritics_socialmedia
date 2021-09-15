@@ -29,7 +29,7 @@ class ClientAuthController extends Controller
                         ->withSuccess('Signed in');
         }
   
-        return redirect("login")->withSuccess('Login details are not valid');
+        return redirect("newsfeed")->withSuccess('Login details are not valid');
     }
 
 
@@ -61,7 +61,7 @@ class ClientAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
          
-        return redirect("dashboard")->withSuccess('You have signed-in');
+        return redirect("newsfeed")->withSuccess('You have signed-in');
     }
 
 
