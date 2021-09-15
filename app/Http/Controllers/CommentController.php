@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+    public function index(){
+        $comments = Comment::all();
+        return view('publications.commentDisplay',compact('comments'));
+    }
+
     public function store(Request $request)
     {
         $comment = new Comment;
@@ -16,28 +22,10 @@ class CommentController extends Controller
 
         $comment->user()->associate($request->user());
 
-        $post = Publication::find($request->id);
+        $post = Publication::find($request->id_publication);
 
         $post->comments()->save($comment);
 
         return back();
-    }
-
-    public function replyStore(Request $request)
-    {
-        $reply = new Comment();
-
-        $reply->comment = $request->get('comment');
-
-        $reply->user()->associate($request->user());
-
-        $reply->parent_id = $request->get('comment_id');
-
-        $post = Post::find($request->get('post_id'));
-
-        $post->comments()->save($reply);
-
-        return back();
-
     }
 }

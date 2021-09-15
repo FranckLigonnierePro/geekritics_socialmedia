@@ -9,6 +9,16 @@ class Publication extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+        'id_category',
+        'id_user',
+        'image',
+        'video',
+        'created_at',
+
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,6 +26,6 @@ class Publication extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
 }

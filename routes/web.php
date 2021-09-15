@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientAuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PublicationController;
 
 /*
@@ -29,3 +30,6 @@ Route::get('signout', [ClientAuthController::class, 'signOut'])->name('signout')
 Route::get('newsfeed', [PublicationController::class,'index'])->name('newsfeed');
 Route::post('customPublication', [PublicationController::class,'store'])->name('customPublication');
 Route::get('newsfeed/{id}', [PublicationController::class,'show'])->name('newsfeedDetail');
+
+Route::post('/comment/store', [CommentController::class,'store'])->name('comment.add');
+

@@ -3,25 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Comment;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 
 class PublicationController extends Controller
 {
-    public function __construct()
-    {
-       $this->middleware('auth');
-    }
 
     public function index(){
         $publications = Publication::join('categories','categories.id','=','publications.id_category')
-        ->get(['publications.id','publications.content','publications.created_at', 'categories.category']);
+        ->join('users','users.id','=','publications.id_user')
+        ->get(['publications.id','publications.content','publications.image','publications.created_at', 'categories.category', 'users.pseudo']);
         $categories = Categorie::all();
-        return view('publications.index', compact('publications','categories'));
+        $comments = Comment::all();
+        return view('publications.index', compact('publications','categories','comments'));
         
     }
 
     public function store(Request $request){
+
+        $this->middleware('auth');
+
         $imageName = "";
         if ($request->image) {
             $imageName = time() . "." . $request->image->extension();

@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('id_publication')->references('id')->on('publications')->onDelete('cascade');
             $table->id();
             $table->text('content');
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->string('image',55)->nullable();
             $table->string('video',55)->nullable();
             $table->string('tags', 55)->nullable();
