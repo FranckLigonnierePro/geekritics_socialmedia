@@ -7,13 +7,13 @@
     <div class="row">
         <div class="col-md-6 offset-3">
             <div class='card p-2'>
-                <form method="POST" action="{{ route('customPublication')}}">
+                <form method="POST" action="{{ route('customPublication')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-3">
                         <input type="text" placeholder="Quoi de neuf, ?" id="content" class="form-control" name="content" required autofocus>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" type="file" id="formFile" name="image">
                     </div>
                     <div class="mb-3">
                         <select class="form-select" aria-label="Default select example" name="id_category">
@@ -39,7 +39,7 @@
     <div class="row">
         @foreach($publications as $publication)
         <div class="col-md-6 offset-3 my-3">
-            <a href='' data-bs-toggle="modal" data-bs-target="#exampleModa{{$publication->id}}">
+            <a href="/newsfeed/{{$publication->id }}" >
                 <div class="card text-center">
                     <div class="card-header">
                         <div class="header-category d-flex justify-content-between align-items-center">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-
+                        <img src="{{$publication->image}}" alt="">
                         <p class="card-text">{{ $publication->content}}</p>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-start align-items-center">
@@ -56,16 +56,24 @@
                         <img src="https://i.pravatar.cc/100" alt="" width="50">
                         <p>le: {{$publication->created_at}}</p>
                     </div>
+                    
                 </div>
             </a>
+            <form action="{{route('deletePublication', $publication->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Supprimer</a>
+                        </form>
+                      
         </div>
 
-        <!---------------------------modal publication plus commentaires------------------------------->
+        <!---------------------------modal publication plus commentaires-----------------------------
 
         <div class="modal fade" id="exampleModa{{$publication->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
+                    
                     
                     <img src="https://i.pravatar.cc/100" alt="">
                     <h1>{{ $publication->category}}</h1>
@@ -92,7 +100,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <input type="text" name="content" class="form-control" />
-                                        <input type="hidden" name="id_publication" value="{{ $publication->id }}" />
+                                        <input type="hidden" name="publication_id" value="{{ $publication->id }}" />
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-sm btn-outline-danger py-0" value="Publier" />
@@ -107,8 +115,8 @@
                 </div>
             </div>
         </div>
+    -->
         @endforeach
     </div>
 </div>
-
 @endsection

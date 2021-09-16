@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PublicationController;
+use App\Models\Publication;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,10 @@ Route::get('signout', [ClientAuthController::class, 'signOut'])->name('signout')
 
 Route::get('newsfeed', [PublicationController::class,'index'])->name('newsfeed');
 Route::post('customPublication', [PublicationController::class,'store'])->name('customPublication');
-Route::get('newsfeed/{id}', [PublicationController::class,'show'])->name('newsfeedDetail');
+Route::get('newsfeed/{id}', [PublicationController::class,'show'])->name('newsfeedSolo');
+Route::get('newsfeed/edit/{id}', [PublicationController::class, 'edit'])->name('editPublication');
+Route::patch('newsfeed/update/{id}', [PublicationController::class, 'update'])->name('updatePublication');
+Route::delete('newsfeed/destroy/{id}', [PublicationController::class, 'destroy'])->name('deletePublication');
 
-Route::post('/comment/store', [CommentController::class,'store'])->name('comment.add');
+Route::post('/comment/store', [CommentController::class,'store'])->name('commentAdd')->middleware('auth');
 
